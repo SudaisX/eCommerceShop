@@ -1,0 +1,11 @@
+main {
+    min-height: 80vh;
+}
+
+.round-card {
+    border-radius: 5px;
+}
+
+.rating span {
+    margin: 0.1rem;
+}
