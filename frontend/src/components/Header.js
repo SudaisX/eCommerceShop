@@ -18,7 +18,7 @@ const Header = () => {
                     </LinkContainer>
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
                     <Navbar.Collapse id='basic-navbar-nav'>
-                        <Nav style={{ 'margin-left': 'auto' }}>
+                        <Nav style={{ marginLeft: 'auto' }}>
                             <LinkContainer to='/cart'>
                                 <Nav.Link>
                                     <i className='fas fa-shopping-cart' /> Cart

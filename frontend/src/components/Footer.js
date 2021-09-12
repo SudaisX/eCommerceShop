@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+// import { Container, Row, Col } from 'react-bootstrap';
 import './Footer.css';
 
 const Footer = () => {
@@ -22,17 +22,17 @@ const Footer = () => {
                     <div className='col-md-4 col-sm-6 col-xs-12'>
                         <ul className='social-icons'>
                             <li>
-                                <a className='facebook' href='#'>
+                                <a className='facebook' href='!#'>
                                     <i className='fab fa-facebook-f'></i>
                                 </a>
                             </li>
                             <li>
-                                <a className='instagram' href='#'>
+                                <a className='instagram' href='!#'>
                                     <i className='fab fa-instagram'></i>
                                 </a>
                             </li>
                             <li>
-                                <a className='twitter' href='#'>
+                                <a className='twitter' href='!#'>
                                     <i className='fab fa-twitter'></i>
                                 </a>
                             </li>
