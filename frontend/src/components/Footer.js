@@ -12,7 +12,6 @@ const Footer = () => {
         //     </Container>
         // </footer>
         <footer className='site-footer'>
-            <div className='container'></div>
             <div className='container'>
                 <div className='row'>
                     <div className=' copyright-text col-md-8 col-sm-6 col-xs-12'>

@@ -10,7 +10,7 @@ const Header = () => {
                 variant='dark'
                 expand='lg'
                 collapseOnSelect>
-                <Container>
+                <Container style={{ maxWidth: '92%' }}>
                     <LinkContainer to='/'>
                         <Navbar.Brand>
                             <div>Dukaan</div>
