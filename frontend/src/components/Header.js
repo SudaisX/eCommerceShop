@@ -13,11 +13,27 @@ const Header = () => {
                 <Container style={{ maxWidth: '92%' }}>
                     <LinkContainer to='/'>
                         <Navbar.Brand>
-                            <div>Dukaan</div>
+                            <div>
+                                <img
+                                    src='http://nonamakeup.com/wp-content/uploads/2021/03/Nona-name-160-w.png'
+                                    alt='logo'
+                                />
+                            </div>
                         </Navbar.Brand>
                     </LinkContainer>
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
                     <Navbar.Collapse id='basic-navbar-nav'>
+                        <Nav style={{ marginLeft: '40px' }}>
+                            <LinkContainer to='/'>
+                                <Nav.Link>Home</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to='#'>
+                                <Nav.Link>Shop</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to='#'>
+                                <Nav.Link>About</Nav.Link>
+                            </LinkContainer>
+                        </Nav>
                         <Nav style={{ marginLeft: 'auto' }}>
                             <LinkContainer to='/cart'>
                                 <Nav.Link>
