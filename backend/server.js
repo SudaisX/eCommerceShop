@@ -5,6 +5,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
 
 import productRoutes from './routes/productRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 // ENV Config
 dotenv.config();
@@ -14,6 +15,8 @@ connectDB();
 // Initialize Express App
 const app = express();
 
+app.use(express.json());
+
 // Home Route
 app.get('/', (req, res) => {
     res.send('API is active..');
@@ -21,6 +24,7 @@ app.get('/', (req, res) => {
 
 // Products Routes
 app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
 
 // Middlewares
 app.use(notFound);

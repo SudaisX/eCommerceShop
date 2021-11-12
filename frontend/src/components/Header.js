@@ -15,7 +15,7 @@ const Header = () => {
                         <Navbar.Brand>
                             <div>
                                 <img
-                                    src='http://nonamakeup.com/wp-content/uploads/2021/03/Nona-name-160-w.png'
+                                    src='http://nonamakeup.com/wp-content/uploads/2021/10/Nona-name-160-w.png'
                                     alt='logo'
                                 />
                             </div>
@@ -30,7 +30,7 @@ const Header = () => {
                             <LinkContainer to='#'>
                                 <Nav.Link>Shop</Nav.Link>
                             </LinkContainer>
-                            <LinkContainer to='#'>
+                            <LinkContainer to='/about'>
                                 <Nav.Link>About</Nav.Link>
                             </LinkContainer>
                         </Nav>

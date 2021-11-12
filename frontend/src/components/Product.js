@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import Rating from './Rating';
+import commaNumber from 'comma-number';
 
 const Product = ({ product }) => {
     return (
@@ -23,7 +24,7 @@ const Product = ({ product }) => {
                     </div>
                 </Card.Text>
 
-                <Card.Text as='h3'>₨{product.price}</Card.Text>
+                <Card.Text as='h3'>₨{commaNumber(product.price)}</Card.Text>
             </Card.Body>
         </Card>
     );
