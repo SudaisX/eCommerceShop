@@ -24,3 +24,12 @@ h2 {
     display: flex;
     align-items: center;
 }
+
+.hyperlink {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hyperlink:hover {
+    opacity: 0.9;
+}
