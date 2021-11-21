@@ -27,9 +27,9 @@ h2 {
 
 .hyperlink {
     text-decoration: none;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .hyperlink:hover {
-    opacity: 0.9;
+    opacity: 0.8;
 }
