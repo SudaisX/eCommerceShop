@@ -1,26 +1,51 @@
 import React, { useEffect } from 'react';
-import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
+import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import commaNumber from 'comma-number';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { getOrderDetails } from '../actions/orderActions';
+import { getOrderDetails, payOrder, deliverOrder } from '../actions/orderActions';
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../constants/orderConstants';
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
     const orderId = match.params.id;
     const dispatch = useDispatch();
+
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
 
     const orderDetails = useSelector((state) => state.orderDetails);
     const { order, loading, error } = orderDetails;
 
+    const orderPay = useSelector((state) => state.orderPay);
+    const { loading: loadingPay, success: successPay } = orderPay;
+
+    const orderDeliver = useSelector((state) => state.orderDeliver);
+    const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+
     useEffect(() => {
-        dispatch(getOrderDetails(orderId));
-    }, [dispatch, orderId]);
+        if (!userInfo) {
+            history.push('/login');
+        }
+        if (!order || successPay || successDeliver) {
+            dispatch({ type: ORDER_PAY_RESET });
+            dispatch({ type: ORDER_DELIVER_RESET });
+            dispatch(getOrderDetails(orderId));
+        }
+    }, [dispatch, orderId, successPay, successDeliver, order]);
 
     if (!loading) {
         order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0);
     }
+
+    const payHandler = () => {
+        dispatch(payOrder(order));
+    };
+
+    const deliverHandler = () => {
+        dispatch(deliverOrder(order));
+    };
 
     return loading ? (
         <Loader />
@@ -138,6 +163,30 @@ const OrderScreen = ({ match }) => {
                                     <Col>${commaNumber(order.totalPrice)}</Col>
                                 </Row>
                             </ListGroup.Item>
+
+                            {loadingPay && <Loader />}
+                            {loadingDeliver && <Loader />}
+
+                            {userInfo && userInfo.isAdmin && (
+                                <>
+                                    <ListGroup.Item>
+                                        <Button
+                                            type='button'
+                                            className='btn-block'
+                                            onClick={payHandler}>
+                                            Mark as Paid
+                                        </Button>
+                                    </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Button
+                                            type='button'
+                                            className='btn-block'
+                                            onClick={deliverHandler}>
+                                            Mark as Delivered
+                                        </Button>
+                                    </ListGroup.Item>
+                                </>
+                            )}
                         </ListGroup>
                     </Card>
                 </Col>
