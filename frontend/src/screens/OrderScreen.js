@@ -33,7 +33,7 @@ const OrderScreen = ({ match, history }) => {
             dispatch({ type: ORDER_DELIVER_RESET });
             dispatch(getOrderDetails(orderId));
         }
-    }, [dispatch, orderId, successPay, successDeliver, order]);
+    }, [dispatch, history, userInfo, orderId, successPay, successDeliver, order]);
 
     if (!loading) {
         order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0);
