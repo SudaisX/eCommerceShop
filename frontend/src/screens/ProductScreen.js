@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProductDetails, createProductReview } from '../actions/productActions';
-import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap';
+import { Row, Col, Image, ListGroup, Button, Form } from 'react-bootstrap';
+import commaNumber from 'comma-number';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
-import { PRODUCT_CREATE_RESET, PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
+import Meta from '../components/Meta';
+import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
 
 const ProductScreen = ({ history, match }) => {
     const [rating, setRating] = useState(0);
@@ -59,11 +61,12 @@ const ProductScreen = ({ history, match }) => {
                 <Message variant='danger'>{error}</Message>
             ) : (
                 <>
+                    <Meta title={product.name} />
                     <Row>
                         <Col md={5}>
                             <Image src={product.image} alt={product.name} fluid />
                         </Col>
-                        <Col md={4}>
+                        <Col md={7}>
                             <ListGroup variant='flush'>
                                 <ListGroup.Item>
                                     <h3>{product.name}</h3>
@@ -71,14 +74,71 @@ const ProductScreen = ({ history, match }) => {
                                 <ListGroup.Item>
                                     <Rating
                                         value={product.rating}
-                                        text={`${product.numReviews} reviews`}
+                                        text={` ${product.numReviews} reviews`}
                                     />
                                 </ListGroup.Item>
-                                <ListGroup.Item>₨{product.price}</ListGroup.Item>
-                                <ListGroup.Item>{product.description}</ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Row>
+                                        <Col md={2}>Price</Col>
+                                        <Col>
+                                            <strong>₨{commaNumber(product.price)}</strong>
+                                        </Col>
+                                    </Row>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Row>
+                                        <Col md={2}>Status</Col>
+                                        <Col>
+                                            {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
+                                        </Col>
+                                    </Row>
+                                </ListGroup.Item>
+                                <ListGroup.Item>
+                                    <Row>
+                                        <Col md={2}>Description</Col>
+                                        <Col>{product.description}</Col>
+                                    </Row>
+                                </ListGroup.Item>
+
+                                {product.countInStock > 0 && (
+                                    <ListGroup.Item>
+                                        <Row>
+                                            <Col
+                                                md={2}
+                                                style={{ display: 'flex', alignItems: 'center' }}>
+                                                Quantity{' '}
+                                            </Col>
+                                            <Col md={3}>
+                                                <Form.Select
+                                                    value={qty}
+                                                    onChange={(e) => setQty(e.target.value)}>
+                                                    {[...Array(product.countInStock).keys()].map(
+                                                        (n) => (
+                                                            <option key={n + 1} value={n + 1}>
+                                                                {n + 1}
+                                                            </option>
+                                                        )
+                                                    )}
+                                                </Form.Select>
+                                            </Col>
+                                        </Row>
+                                        <Row className='mt-3'>
+                                            <Col md={5}>
+                                                <Button
+                                                    onClick={addToCartHandler}
+                                                    className='btn-block'
+                                                    variant='primary'
+                                                    style={{ width: '100%' }}
+                                                    disabled={product.countInStock === 0}>
+                                                    Add to Cart
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
+                                )}
                             </ListGroup>
                         </Col>
-                        <Col md={3}>
+                        {/* <Col md={3}>
                             <Card>
                                 <ListGroup variant='flush'>
                                     <ListGroup.Item>
@@ -133,9 +193,10 @@ const ProductScreen = ({ history, match }) => {
                                     </ListGroup.Item>
                                 </ListGroup>
                             </Card>
-                        </Col>
+                        </Col> */}
                     </Row>
                     <Row className='mt-3'>
+                        <hr />
                         <Col>
                             <ListGroup variant='flush'>
                                 <ListGroup.Item>
