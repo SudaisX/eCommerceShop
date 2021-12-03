@@ -35,7 +35,12 @@ h2 {
 }
 
 /* carousel */
+.carousel {
+    border-radius: 50px;
+}
+
 .carousel-inner {
+    border-radius: 50px;
     background-color: rgba(33, 33, 33, 0.95);
 }
 
